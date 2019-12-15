@@ -14,8 +14,6 @@ https://leetcode-cn.com/problems/add-two-numbers/
 ```
 # **思路解析**
 # **代码实现**
-- 语言支持: C++, Python3
-
 Python3 Code:
 ```
 ```
