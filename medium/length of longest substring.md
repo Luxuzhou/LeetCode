@@ -19,7 +19,7 @@ https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 输出:3
 解释:因为无重复字符的最长子串是 "wke"，所以其长度为3。
 
-请注意，你的答案必须是子串的长度，"pwke" 是一个子序列，不是子串。
+请注意，你的答案必须是子串的长度，"pwke"是一个子序列，不是子串。
 ```
 # **思路解析**
 # **代码实现**
