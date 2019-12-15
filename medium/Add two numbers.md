@@ -17,59 +17,59 @@ https://leetcode-cn.com/problems/add-two-numbers/
 Python3 Code:
 ```
 class Solution:
-	def addTwoNumbers(self, l1: ListsNode, l2: ListNode) -> ListNode:
-		re = ListNode(0)
-		r = re
-		carry = 0
-		while(l1 or l2):
-			x = l1.val if l1 else 0
-			y = l2.val if l2 else 0
-			s = carry+x+y
-			carry = s//10
-			r.next = ListNode(s%10)
-			r = r.next
-			if(l1!=None):l1=l1.next
-			if(l2!=None):l2=l2.next
-		if(carry>0):
-			r.next = ListNode(1)
-		return re.next
+    def addTwoNumbers(self, l1: ListsNode, l2: ListNode)->ListNode:
+		    re = ListNode(0)
+		    r = re
+		    carry = 0
+		    while(l1 or l2):
+			      x = l1.val if l1 else 0
+			      y = l2.val if l2 else 0
+			      s = carry + x + y
+			      carry = s // 10
+			      r.next = ListNode(s % 10)
+			      r = r.next
+			      if(l1 != None):l1 = l1.next
+			      if(l2 != None):l2 = l2.next
+        if(carry > 0):
+			      r.next = ListNode(1)
+		    return re.next
 ```
 C++ Code:
 ```
 class Solution {
 public:
-	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* head=new ListNode(-1);
-        ListNode* h=head;
-        int sum=0;
-        bool carry=false;
-        while(l1!=NULL||l2!=NULL)
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* head = new ListNode(-1);
+        ListNode* h = head;
+        int sum = 0;
+        bool carry = false;
+        while(l1 != NULL || l2 != NULL)
         {
-            sum=0;
-            if(l1!=NULL)
+            sum = 0;
+            if(l1 != NULL)
             {
-                sum+=l1->val;
-                l1=l1->next;
+                sum += l1->val;
+                l1 = l1->next;
             }
-            if(l2!=NULL)
+            if(l2 != NULL)
             {
-                sum+=l2->val;
-                l2=l2->next;
+                sum += l2->val;
+                l2 = l2->next;
             }
             if(carry)
                 sum++;
-            h->next=new ListNode(sum%10);
-            h=h->next;
-            carry=sum>=10?true:false;
+            h->next = new ListNode(sum%10);
+            h = h->next;
+            carry = sum >= 10 ? true : false;
         }
         if(carry)
         {
-            h->next=new ListNode(1);
+            h->next = new ListNode(1);
         }
-		ptrDelete = head; 
-		head = head->next; 
-		delete ptrDelete; 
-		return head;
+        ptrDelete = head; 
+        head = head->next; 
+        delete ptrDelete; 
+        return head;
     }
 };
 ```
