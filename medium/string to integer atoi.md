@@ -45,9 +45,22 @@ https://leetcode-cn.com/problems/string-to-integer-atoi/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        return max(min(int(*re.findall('^[\+\-]?\d+', s.lstrip())), (1<<31) - 1), -(1<<31))
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    int myAtoi(string str) {
+        while(*str.begin() == ' ') str.erase(str.begin());
+        if(str == "") return 0;
+        stringstream ss;
+        ss<<str;
+        int n;
+        ss>>n;
+        return n;
+    }
+};
 ```
