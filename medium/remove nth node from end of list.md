@@ -18,9 +18,40 @@ https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        if not head: return 
+        dummy = ListNode(0)
+        dummy.next = head
+        fast = dummy
+        while n:
+            fast = fast.next
+            n -= 1
+        slow = dummy
+        while fast and fast.next:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return dummy.next
 ```
 C++ Code:
 ```
-
+class Solution{
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* front = head;
+        ListNode* rear = head;
+        if (head -> next == NULL) return NULL;
+        while (n-- >= 0) {
+            if (rear == NULL) return head -> next;
+            rear = rear -> next;
+        }
+        while (rear) {
+            rear = rear -> next;
+            front = front -> next;
+        }
+        front -> next = front -> next -> next;
+        return head;
+    }
+};
 ```
