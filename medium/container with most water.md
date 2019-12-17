@@ -16,9 +16,35 @@ https://leetcode-cn.com/problems/container-with-most-water/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        i, j, res = 0, len(height) - 1, 0
+        while i < j:
+            if height[i] < height[j]:
+                res = max(res, height[i] * (j - i))
+                i += 1
+            else:
+                res = max(res, height[j] * (j - i))
+                j -= 1
+        return res
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int i = 0;
+        int j = height.size() - 1;
+        int res = 0;
+        while (i < j) {
+            int temp1 = min(height[i], height[j]);
+            int temp2 = temp1 * (j - i);
+            res = max(res, temp2);
+            if (height[i] < height[j])
+                i++;
+            else j--;
+        }
+        return res;
+    }
+};
 ```
