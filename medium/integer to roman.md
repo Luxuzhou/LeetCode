@@ -49,9 +49,35 @@ C可以放在D(500)和M(1000)的左边，来表示400和900。
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        nums = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+        romans = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+        index = 0
+        res = ''
+        while index < 13:
+            while num >= nums[index]:
+                res += romans[index]
+                num -= nums[index]
+            index += 1
+        return res
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    string intToRoman(int num) {
+        string result;
+        vector<int> store = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        vector<string> strs = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int storeSize = int(store.size());
+        for (int i = 0; i < storeSize; i++) {
+            while (num >= store[i]) {
+                result.append(strs[i]);
+                num -= store[i];
+            }
+        }
+        return result;
+    }
+};
 ```
