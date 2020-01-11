@@ -31,9 +31,55 @@ candidates 中的每个数字在每个组合中只能使用一次。
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        if (not candidates):
+            return []
+        n = len(candidates)
+        candidates.sort()
+        res = []
+        def helper(i, tmp, target):
+            print(i, tmp, target)
+            if (target == 0):
+                res.append(tmp)
+                return
+            if (i == n or target < candidates[i]):
+                return
+            for j in range(i, n):
+                if(j > i and candidates[j] == candidates[j - 1]):
+                    continue
+                helper(j + 1, tmp + [candidates[j]], target - candidates[j])
+        helper(0, [], target)
+        return res
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<int> ans;
+        recurs(candidates, ans, 0, target);
+        return res;
+    }
+    void recurs(vector<int>& candidates, vector<int>& ans, int pos, int target) {
+        if (target==0) {
+            res.push_back(ans);
+            return;
+        }
+        for (int i = pos; i < candidates.size(); ++i) {
+            if (target - candidates[i] >= 0) {
+                if (i != pos && candidates[i] == candidates[i - 1])
+                    continue;
+                ans.push_back(candidates[i]);
+                recurs(candidates, ans, i+1, target-candidates[i]);
+                ans.pop_back();
+            }
+            else {
+                break;
+            }
+        }
+    }
+};
 ```
