@@ -51,9 +51,34 @@ https://leetcode-cn.com/problems/valid-sudoku/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        row = [[x for x in y if x != '.'] for y in board]
+        col = [[x for x in y if x != '.'] for y in zip(*board)]
+        pal = [[board[i + m][j + n] for m in range(3) for n in range(3) if board[i + m][j + n] != '.'] for i in (0, 3, 6) for j in (0, 3, 6)]
+        return all(len(set(x)) == len(x) for x in (*row, *col, *pal))
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        int row[9][10] = {0};
+        int col[9][10] = {0};
+        int box[9][10] = {0};
+        for (int i=0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') continue;
+                int curNumber = board[i][j] - '0';
+                if (row[i][curNumber]) return false; 
+                if (col[j][curNumber]) return false;
+                if (box[j / 3 + (i / 3) * 3][curNumber]) return false;
+                row[i][curNumber] = 1;
+                col[j][curNumber] = 1;
+                box[j / 3 + (i / 3) * 3][curNumber] = 1;
+            }
+        }
+        return true;
+    }
+};
 ```
