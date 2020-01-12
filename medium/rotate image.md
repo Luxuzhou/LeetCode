@@ -27,9 +27,33 @@ https://leetcode-cn.com/problems/rotate-image/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        for x in range(len(matrix)):
+            for y in range(x):
+                matrix[x][y], matrix[y][x] = matrix[y][x], matrix[x][y]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[i]) // 2):
+                matrix[i][j], matrix[i][len(matrix) - 1 - j] = matrix[i][len(matrix) - 1 - j], matrix[i][j]
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        for (int loop = 0; loop < n / 2; loop++) {                    
+            for (int i = loop, j = loop; i < n - 1 - loop; i++) {   
+                int pre = matrix[i][j];
+                for (int time = 1; time <= 4; time++) {             
+                    int tmpi = i; i = j; j = n - 1 - tmpi;
+                    swap(pre, matrix[i][j]);
+                }
+            }
+        }
+    }
+};
 ```
