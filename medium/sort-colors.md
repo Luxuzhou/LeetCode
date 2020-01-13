@@ -21,9 +21,39 @@ https://leetcode-cn.com/problems/sort-colors/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        r, w, b = 0, 0, len(nums) - 1
+        while w <= b:
+            if nums[w] == 0:
+                nums[w], nums[r] = nums[r], nums[w]
+                r += 1
+                w += 1
+            elif nums[w] == 1:
+                w += 1
+            else:
+                nums[w], nums[b] = nums[b], nums[w]
+                b -= 1
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int p0 = 0, curr = 0;
+        int p2 = nums.size() - 1;
+        while (curr <= p2) {
+            if (nums[curr] == 0) {
+                swap(nums[curr++], nums[p0++]);
+            }
+            else if (nums[curr] == 2) {
+                swap(nums[curr], nums[p2--]);
+            }
+            else curr++;
+        }
+    }
+};
 ```
