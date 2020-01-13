@@ -33,9 +33,34 @@ for (int i = 0; i < len; i++) {
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return None
+        start, end = 0, 0
+        while end < len(nums):
+            if start < 2 or nums[end] != nums[start - 2]:
+                nums[start] = nums[end]
+                start += 1
+            end += 1
+        return start
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 2) {
+            return n;
+        }
+        int sp = 1;
+        for (int fp = 2; fp < n; fp++) {
+            if (nums[fp] != nums[sp - 1]) {
+                nums[++sp] = nums[fp];
+            }
+        }
+        return sp + 1;
+    }
+};
 ```
