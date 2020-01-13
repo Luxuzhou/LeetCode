@@ -22,9 +22,29 @@ https://leetcode-cn.com/problems/group-anagrams/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        from collections import defaultdict
+        lookup = defaultdict(list)
+        for s in strs:
+            lookup["".join(sorted(s))].append(s)
+        return list(lookup.values())
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<string, vector<string>> ma;
+        vector<vector<string>> res;
+        for (auto str:strs) {
+            string tmp = str;
+            sort(tmp.begin(), tmp.end());
+            ma[tmp].push_back(str);
+        }
+        for(const auto& m:ma)
+            res.push_back(m.second);
+        return res;
+    }
+};
 ```
