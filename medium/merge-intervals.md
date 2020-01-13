@@ -18,9 +18,44 @@ https://leetcode-cn.com/problems/merge-intervals/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals = sorted(intervals)
+        res = []
+        n = len(intervals)
+        i = 0
+        while i < n:
+            left = intervals[i][0]
+            right = intervals[i][1]
+            while i < n - 1 and intervals[i+1][0] <= right:
+                i += 1
+                right = max(intervals[i][1], right)
+            res.append([left, right])
+            i += 1
+        return res
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if (intervals.empty()) return {};
+        vector<vector<int>> res;
+        sort(intervals.begin(), intervals.end(), [](auto& a, auto& b) {
+            return a[0] < b[0];
+        });
+        res.push_back(move(intervals[0]));
+        int j = 0;
+        for (int i = 1; i < intervals.size(); i++) {
+            if (res[j][1] >= intervals[i][0] && res[j][1] <= intervals[i][1]) {
+            res[j][1] = intervals[i][1];
+            }
+            else if (res[j][1] < intervals[i][0]) {
+                j++;
+                res.push_back(move(intervals[i]));
+            }
+        }
+        return res;
+    }
+};
 ```
