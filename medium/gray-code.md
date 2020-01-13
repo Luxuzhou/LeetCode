@@ -34,9 +34,29 @@ https://leetcode-cn.com/problems/gray-code/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        res, head = [0], 1
+        for i in range(n):
+            for j in range(len(res) - 1, -1, -1):
+                res.append(head + res[j])
+            head <<= 1
+        return res
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    vector<int> grayCode(int n) {
+        vector<int> result(1);
+        result[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            int e = 1 << (i - 1);                          
+            for (int j = result.size() - 1; j >= 0; j--) {  
+                result.push_back(e + result[j]);
+            }
+        }
+        return result;
+    }
+};
 ```
