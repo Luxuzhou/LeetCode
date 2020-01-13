@@ -41,9 +41,70 @@ https://leetcode-cn.com/problems/set-matrix-zeroes/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        flag_col = False
+        row = len(matrix)
+        col = len(matrix[0])
+        for i in range(row):
+            if matrix[i][0] == 0: flag_col =True
+            for j in range(1, col):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = matrix[0][j] = 0
+        for i in range(row - 1, -1, -1):
+            for j in range(col - 1, 0, -1):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+            if flag_col == True: matrix[i][0] = 0
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        bool row = false;
+        bool column = false;
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix[i].size(); j++) {
+                if (matrix[i][j] == 0) {
+                    if (i == 0) {
+                        row = true;
+                    }
+                    if (j == 0) {
+                        column = true;
+                    }
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        for (int i = 1; i < matrix.size(); i++) {
+            if (matrix[i][0] == 0) {
+                for (int j = 1; j < matrix[i].size(); j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for (int j = 1; j < matrix[0].size(); j++) {
+            if (matrix[0][j] == 0) {
+                for (int i = 1; i < matrix.size(); i++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        if (row == true) {
+            for (int j = 1; j < matrix[0].size(); j++) {
+                matrix[0][j] = 0;
+            }
+        }
+        if (column == true) {
+            for (int i = 1; i < matrix.size(); i++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+};
 ```
