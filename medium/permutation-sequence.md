@@ -29,9 +29,42 @@ https://leetcode-cn.com/problems/permutation-sequence/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        nums = [str(i) for i in range(1, n + 1)]
+        ans = ''
+        k = k - 1
+        while n > 0:
+            kth = self.factorial(n - 1)
+            p = k // kth
+            k = k % kth
+            ans += nums[p]
+            del nums[p]
+            n -= 1
+            if k == 0:
+                for c in nums:
+                    ans += c
+                break
+        return ans
+    def factorial(self, n):
+        res = 1
+        while n:
+            res *= n
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        vector<char> chs = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        const int factor[] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880};
+        string str;
+        for (--k; n--; k %= factor[n]) {
+            const int i = k / factor[n];
+            str.push_back(chs[i]);
+            chs.erase(chs.begin() + i);
+        }
+        return str;
+    }
+};
 ```
