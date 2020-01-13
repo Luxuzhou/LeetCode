@@ -23,9 +23,32 @@ https://leetcode-cn.com/problems/subsets/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        n = len(nums)
+        def helper(i, tmp):
+            res.append(tmp)
+            for j in range(i, n):
+                helper(j + 1, tmp + [nums[j]])
+        helper(0, [])
+        return res
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        if (nums.size() == 0) return {{}};
+        int temp_int = nums.back();
+        nums.pop_back();
+        vector<vector<int>> temp_vec_vec = subsets(nums);
+        int k = temp_vec_vec.size();
+        for (int i = 0; i < k; i++) {
+            temp_vec_vec.push_back(temp_vec_vec[i]);
+            temp_vec_vec[i].push_back(temp_int);
+        }
+        return temp_vec_vec;
+    }
+};
 ```
