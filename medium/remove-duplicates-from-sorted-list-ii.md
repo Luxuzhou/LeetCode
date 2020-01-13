@@ -16,9 +16,46 @@ https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        thead = ListNode('a')
+        thead.next = head
+        pre, cur = None, thead
+        while cur:
+            pre = cur
+            cur = cur.next
+            while cur and cur.next and cur.next.val == cur.val:
+                t = cur.val
+                while cur and cur.val == t:
+                    cur = cur.next
+                pre.next = cur
+        return thead.next
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* preHead = new ListNode(0);
+        preHead -> next = head;
+        ListNode* cur = preHead;
+        int delVal;
+        while (cur -> next != NULL) {
+            if(cur -> next -> next != NULL && cur -> next -> val == cur -> next -> next -> val) {
+            delVal = cur -> next -> val;
+            while (cur -> next != NULL && cur -> next -> val == delVal) {
+                ListNode* delNode = cur -> next;
+                cur -> next = delNode -> next;
+                delete delNode;
+            }
+            }
+            else {
+                cur = cur -> next;
+            }
+        }
+        ListNode* newHead = preHead -> next;
+        delete preHead;
+        return newHead;
+    }
+};
 ```
