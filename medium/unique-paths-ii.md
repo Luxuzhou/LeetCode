@@ -27,9 +27,52 @@ https://leetcode-cn.com/problems/unique-paths-ii/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        m = len(obstacleGrid)
+        if m < 1:
+            return 0
+        n = len(obstacleGrid[0])
+        if n < 1:
+            return 0
+        if 1 == obstacleGrid[0][0]:
+            return 0
+        dp = [[0]*n for _ in range(m)]
+        for i in range(0, m):
+            for j in range(0, n):
+                if 0 == i and 0 == j:
+                    dp[i][j] = 1
+                elif 0 == i and 0 != j:
+                    if 0 == obstacleGrid[i][j]:
+                        dp[i][j] = dp[i][j - 1]
+                elif 0 != i and 0 == j:
+                    if 0 == obstacleGrid[i][j]:
+                        dp[i][j] = dp[i - 1][j]
+                else:
+                    if 0 == obstacleGrid[i][j]:
+                        dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        return dp[-1][-1]
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int m = obstacleGrid.size();
+        if (m < 1) return 0;
+        int n = obstacleGrid[0].size();
+        if (n < 1) return 0;
+        long dp[m][n];
+        if (1 == obstacleGrid[0][0]) return 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (0 == i && 0 == j) dp[i][j] = 1;
+                else if (0 == i && j!=0) dp[i][j] = (1 == obstacleGrid[i][j] ? 0 : dp[i][j - 1]);
+                else if (0 != i && j == 0) dp[i][j] = (1 == obstacleGrid[i][j] ? 0 : dp[i - 1][j]);
+                else dp[i][j] = (1 == obstacleGrid[i][j] ? 0 : dp[i][j - 1] + dp[i - 1][j]);
+            }
+        }
+        return static_cast<int>(dp[m - 1][n - 1]);
+    }
+};
 ```
