@@ -20,9 +20,25 @@ https://leetcode-cn.com/problems/jump-game/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def canJump(self, nums) :
+        max_i = 0      
+        for i, jump in enumerate(nums):   
+            if max_i >= i and i + jump > max_i:   
+                max_i = i + jump  
+        return max_i >= i
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+	      int k = 0;
+	      for (int i = 0; i < nums.size(); i++) {
+		        if (i > k) return false;
+		        k = max(k, i + nums[i]);
+	      }
+	      return true;
+    }
+};
 ```
