@@ -25,9 +25,31 @@ n 是 32 位有符号整数，其数值范围是 [−2^31, 2^31 − 1]。
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        judge = True
+        if n < 0:
+            n = -n
+            judge = False
+        final = 1
+        while n > 0:
+            if n & 1:
+                final *= x
+            x *= x
+            n >>= 1
+        return final if judge else 1 / final
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if (n == 0) return 1;
+        if (n == 1) return x;
+        if (n == -1) return 1 / x;
+        double half = myPow(x, n / 2);
+        double rest = myPow(x, n % 2);
+        return rest * half * half;
+    }
+};
 ```
