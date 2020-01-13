@@ -24,9 +24,38 @@ https://leetcode-cn.com/problems/rotate-list/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        l = []
+        while head: l[len(l):], head = [head], head.next
+        if l: l[-1].next, l[-1 - k % len(l)].next = l[0], None
+        return l[-k % len(l)] if l else None
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        ListNode* pst = head;
+        ListNode* last = NULL;
+        int count = 0;
+        while (pst != NULL) {
+            ++count;
+            last = pst;
+            pst = pst -> next;
+        }
+        if (count == 0) {
+            return head;
+        }
+        int actual = k % count;
+        last -> next = head;
+        pst = head;
+        for (int i = 0; i < count - actual - 1; ++i) {
+            pst = pst -> next;
+        }
+        head = pst -> next;
+        pst -> next = NULL;
+        return head;
+    }
+};
 ```
