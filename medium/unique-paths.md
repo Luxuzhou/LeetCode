@@ -26,9 +26,28 @@ https://leetcode-cn.com/problems/unique-paths/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[1] * n for _ in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
+        return dp[-1][-1]
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        if (0 == m || 0 == n) return 1;
+        vector<vector<int>> dp(m, vector<int> (n));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(0 == i || 0 == j) dp[i][j] = 1;
+                else dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+};
 ```
