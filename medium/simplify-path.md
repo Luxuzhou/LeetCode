@@ -37,9 +37,42 @@ https://leetcode-cn.com/problems/simplify-path/
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        stack = []
+        path = path.split("/")
+        for item in path:
+            if item == "..":
+                if stack: stack.pop()
+            elif item and item!= ".":
+                stack.append(item)
+        return "/" + "/".join(stack)
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    string simplifyPath(string path) {
+        path += "/";
+        stack<string> st;
+        string dir;
+        for (auto c: path) {
+            if (c == '/') {
+                if (dir == ".." && !st.empty()) st.pop();
+                else if (dir != ".." && dir != "." && !dir.empty()) st.push(dir);
+                dir.clear();
+                }
+            else dir += c;
+        }
+        string res;
+        while (!st.empty()) {
+            auto t = st.top();
+            st.pop();
+            res += string(t.rbegin(), t.rend()) + "/";
+        }
+        reverse(res.begin(), res.end());
+        if (res.empty()) res = "/";
+        return res;
+    }
+};
 ```
