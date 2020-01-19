@@ -23,9 +23,45 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 # **代码实现**
 Python3 Code:
 ```
-
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        hash_ = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000, 
+            'IV': 4, 'IX': 9, 'XL': 40, 'XC': 90, 'CD': 400, 'CM': 900}
+        answer = []
+        count = 0
+        while s:
+            if len(s) > 1 and hash_[s[0]] < hash_[s[1]]:
+                answer.append(s[0] + s[1])
+                s = s[2:]
+            else:
+                answer.append((s[0]))
+                s=s[1:]
+        for i in answer:
+            count += hash_[i]
+        return count
 ```
 C++ Code:
 ```
-
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char, int> mp;
+        mp['I'] = 1;
+        mp['V'] = 5;
+        mp['X'] = 10;
+        mp['L'] = 50;
+        mp['C'] = 100;
+        mp['D'] = 500;
+        mp['M'] = 1000;
+        int pos = 0, neg = 0;
+        for (int i = 0;i < s.size()-1; ++i) {
+            if (mp[s[i]] < mp[s[i+1]])
+                neg -= mp[s[i]];
+            else
+                pos += mp[s[i]];
+        }
+        pos += mp[s.back()];
+        return pos + neg;
+    }
+};
 ```
